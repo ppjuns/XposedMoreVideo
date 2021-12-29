@@ -48,18 +48,15 @@ class BaseWebInterfaceHook {
                 super.afterHookedMethod(param)
                 val result = param.result.toString()
                 Log.d(TAG, result)
-
                 if (TextUtils.isEmpty(result)) {
                     return
                 }
-
                 val gson = Gson()
                 val videoExam = try {
                     gson.fromJson<VideoExam>(result, VideoExam::class.java)
                 } catch (e: Exception) {
                     null
                 }
-
                 if (videoExam?.videoExamVos != null && videoExam.videoExamVos!!.isNotEmpty()) {
                     videoExam.videoExamVos?.forEach {
                         if (!videoExamIdList.contains(it.examId)) {
